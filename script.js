@@ -168,9 +168,6 @@ if (documentForm) {
             cinNumber: document.getElementById('cinNumber').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
-            address: document.getElementById('address').value,
-            city: document.getElementById('city').value,
-            country: document.getElementById('country').value,
             additionalInfo: document.getElementById('additionalInfo').value,
             language: currentLang,
             submittedAt: new Date().toISOString()
@@ -299,16 +296,6 @@ function trackOrder() {
                 titleAr: 'الوثيقة جاهزة',
                 descFr: 'En attente de réception du document',
                 descAr: 'في انتظار استلام الوثيقة'
-            },
-            {
-                status: 'shipped',
-                date: '',
-                time: '',
-                completed: false,
-                titleFr: 'Expédié',
-                titleAr: 'تم الشحن',
-                descFr: 'En attente d\'expédition',
-                descAr: 'في انتظار الشحن'
             }
         ]
     };
