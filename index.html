@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-fr="Documents Civils Marocains - Service Officiel" data-ar="الوثائق المدنية المغربية - خدمة رسمية">Documents Civils Marocains - Service Officiel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="lang-fr">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-file-contract"></i>
+                <span data-fr="Documents Maroc" data-ar="وثائق المغرب">Documents Maroc</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" data-fr="Accueil" data-ar="الرئيسية">Accueil</a></li>
+                <li><a href="#services" data-fr="Services" data-ar="الخدمات">Services</a></li>
+                <li><a href="#process" data-fr="Procédure" data-ar="الإجراءات">Procédure</a></li>
+                <li><a href="#track" data-fr="Suivi" data-ar="التتبع">Suivi</a></li>
+                <li><a href="#contact" data-fr="Contact" data-ar="اتصل بنا">Contact</a></li>
+                <li class="language-switcher">
+                    <button id="langBtn" class="lang-btn" type="button">
+                        <i class="fas fa-globe"></i>
+                        <span class="current-lang">FR</span>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button type="button" onclick="switchLanguage('fr')">🇫🇷 Français</button>
+                        <button type="button" onclick="switchLanguage('ar')">🇲🇦 العربية</button>
+                    </div>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 data-fr="Obtenez vos Documents Civils Marocains Facilement" 
+                    data-ar="احصل على وثائقك المدنية المغربية بسهولة">
+                    Obtenez vos Documents Civils Marocains Facilement
+                </h1>
+                <p data-fr="Service professionnel pour l'obtention de vos documents officiels - Actes de naissance, Mariage, Décès et Livret de Famille"
+                   data-ar="خدمة احترافية للحصول على وثائقك الرسمية - شهادات الميلاد والزواج والوفاة ودفتر العائلة">
+                    Service professionnel pour l'obtention de vos documents officiels - Actes de naissance, Mariage, Décès et Livret de Famille
+                </p>
+                <div class="hero-buttons">
+                    <a href="#services" class="btn btn-primary" data-fr="Demander un Document" data-ar="طلب وثيقة">Demander un Document</a>
+                    <a href="#process" class="btn btn-secondary" data-fr="Comment ça marche ?" data-ar="كيف يعمل؟">Comment ça marche ?</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-scroll"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title" data-fr="Nos Services" data-ar="خدماتنا">Nos Services</h2>
+            <p class="section-subtitle" data-fr="Nous vous aidons à obtenir tous vos documents civils officiels" 
+               data-ar="نساعدك في الحصول على جميع وثائقك المدنية الرسمية">
+                Nous vous aidons à obtenir tous vos documents civils officiels
+            </p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h3 data-fr="Acte de Naissance" data-ar="شهادة الميلاد">Acte de Naissance</h3>
+                    <p data-fr="Obtenez une copie certifiée conforme de votre acte de naissance en quelques jours"
+                       data-ar="احصل على نسخة مصادق عليها من شهادة ميلادك في غضون أيام">
+                        Obtenez une copie certifiée conforme de votre acte de naissance en quelques jours
+                    </p>
+                    <a href="#request" class="service-link" data-fr="Demander →" data-ar="طلب ←">Demander →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-ring"></i>
+                    </div>
+                    <h3 data-fr="Acte de Mariage" data-ar="عقد الزواج">Acte de Mariage</h3>
+                    <p data-fr="Certificat de mariage officiel avec toutes les mentions légales nécessaires"
+                       data-ar="شهادة زواج رسمية مع جميع البيانات القانونية اللازمة">
+                        Certificat de mariage officiel avec toutes les mentions légales nécessaires
+                    </p>
+                    <a href="#request" class="service-link" data-fr="Demander →" data-ar="طلب ←">Demander →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cross"></i>
+                    </div>
+                    <h3 data-fr="Acte de Décès" data-ar="شهادة الوفاة">Acte de Décès</h3>
+                    <p data-fr="Document officiel de décès pour vos démarches administratives et successorales"
+                       data-ar="وثيقة وفاة رسمية لإجراءاتك الإدارية والميراث">
+                        Document officiel de décès pour vos démarches administratives et successorales
+                    </p>
+                    <a href="#request" class="service-link" data-fr="Demander →" data-ar="طلب ←">Demander →</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 data-fr="Livret de Famille" data-ar="دفتر العائلة">Livret de Famille</h3>
+                    <p data-fr="Copie complète de votre livret de famille avec toutes les informations actualisées"
+                       data-ar="نسخة كاملة من دفتر عائلتك مع جميع المعلومات المحدثة">
+                        Copie complète de votre livret de famille avec toutes les informations actualisées
+                    </p>
+                    <a href="#request" class="service-link" data-fr="Demander →" data-ar="طلب ←">Demander →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process">
+        <div class="container">
+            <h2 class="section-title" data-fr="Comment ça marche ?" data-ar="كيف يعمل؟">Comment ça marche ?</h2>
+            <p class="section-subtitle" data-fr="Un processus simple en 4 étapes" data-ar="عملية بسيطة في 4 خطوات">
+                Un processus simple en 4 étapes
+            </p>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 data-fr="Remplir le Formulaire" data-ar="املأ النموذج">Remplir le Formulaire</h3>
+                    <p data-fr="Renseignez les informations nécessaires et téléchargez les pièces justificatives"
+                       data-ar="قدم المعلومات اللازمة وحمّل المستندات المطلوبة">
+                        Renseignez les informations nécessaires et téléchargez les pièces justificatives
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 data-fr="Vérification" data-ar="التحقق">Vérification</h3>
+                    <p data-fr="Notre équipe vérifie votre demande et valide tous les documents fournis"
+                       data-ar="يقوم فريقنا بفحص طلبك والتحقق من جميع المستندات المقدمة">
+                        Notre équipe vérifie votre demande et valide tous les documents fournis
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 data-fr="Traitement" data-ar="المعالجة">Traitement</h3>
+                    <p data-fr="Nous contactons les autorités compétentes et gérons toutes les démarches"
+                       data-ar="نتواصل مع السلطات المختصة ونتولى جميع الإجراءات">
+                        Nous contactons les autorités compétentes et gérons toutes les démarches
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 data-fr="Livraison" data-ar="التسليم">Livraison</h3>
+                    <p data-fr="Réception de vos documents certifiés conformes à votre adresse"
+                       data-ar="استلام وثائقك المصادق عليها في عنوانك">
+                        Réception de vos documents certifiés conformes à votre adresse
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Form Section -->
+    <section id="request" class="request-form">
+        <div class="container">
+            <h2 class="section-title" data-fr="Demander un Document" data-ar="طلب وثيقة">Demander un Document</h2>
+            <form id="documentForm" class="document-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-fr="Type de Document *" data-ar="نوع الوثيقة *">Type de Document *</label>
+                        <select id="documentType" required>
+                            <option value="" data-fr="Sélectionner..." data-ar="اختر...">Sélectionner...</option>
+                            <option value="birth" data-fr="Acte de Naissance" data-ar="شهادة الميلاد">Acte de Naissance</option>
+                            <option value="marriage" data-fr="Acte de Mariage" data-ar="عقد الزواج">Acte de Mariage</option>
+                            <option value="death" data-fr="Acte de Décès" data-ar="شهادة الوفاة">Acte de Décès</option>
+                            <option value="family" data-fr="Livret de Famille" data-ar="دفتر العائلة">Livret de Famille</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-fr="Nombre de Copies *" data-ar="عدد النسخ *">Nombre de Copies *</label>
+                        <input type="number" id="copies" min="1" max="10" value="1" required>
+                    </div>
+                </div>
+
+                <h3 class="form-section-title" data-fr="Informations Personnelles" data-ar="المعلومات الشخصية">Informations Personnelles</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-fr="Nom Complet *" data-ar="الاسم الكامل *">Nom Complet *</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-fr="Date de Naissance *" data-ar="تاريخ الميلاد *">Date de Naissance *</label>
+                        <input type="date" id="birthDate" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-fr="Lieu de Naissance *" data-ar="مكان الميلاد *">Lieu de Naissance *</label>
+                        <input type="text" id="birthPlace" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-fr="Nom du Père" data-ar="اسم الأب">Nom du Père</label>
+                        <input type="text" id="fatherName">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-fr="Nom de la Mère" data-ar="اسم الأم">Nom de la Mère</label>
+                        <input type="text" id="motherName">
+                    </div>
+                    <div class="form-group">
+                        <label data-fr="Numéro CIN" data-ar="رقم البطاقة الوطنية">Numéro CIN</label>
+                        <input type="text" id="cinNumber">
+                    </div>
+                </div>
+
+                <h3 class="form-section-title" data-fr="Coordonnées" data-ar="معلومات الاتصال">Coordonnées</h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-fr="Email *" data-ar="البريد الإلكتروني *">Email *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-fr="Téléphone *" data-ar="الهاتف *">Téléphone *</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label data-fr="Adresse de Livraison *" data-ar="عنوان التسليم *">Adresse de Livraison *</label>
+                    <textarea id="address" rows="3" required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-fr="Ville *" data-ar="المدينة *">Ville *</label>
+                        <input type="text" id="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-fr="Pays *" data-ar="البلد *">Pays *</label>
+                        <input type="text" id="country" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label data-fr="Informations Complémentaires" data-ar="معلومات إضافية">Informations Complémentaires</label>
+                    <textarea id="additionalInfo" rows="4" 
+                              placeholder=""></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" required>
+                        <span data-fr="J'accepte les conditions générales de service et la politique de confidentialité"
+                              data-ar="أوافق على شروط الخدمة وسياسة الخصوصية">
+                            J'accepte les conditions générales de service et la politique de confidentialité
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">
+                    <i class="fas fa-paper-plane"></i>
+                    <span data-fr="Soumettre la Demande" data-ar="إرسال الطلب">Soumettre la Demande</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Track Order Section -->
+    <section id="track" class="track-order">
+        <div class="container">
+            <h2 class="section-title" data-fr="Suivre ma Demande" data-ar="تتبع طلبي">Suivre ma Demande</h2>
+            <p class="section-subtitle" data-fr="Entrez votre numéro de référence pour suivre l'état de votre demande"
+               data-ar="أدخل رقم المرجع لتتبع حالة طلبك">
+                Entrez votre numéro de référence pour suivre l'état de votre demande
+            </p>
+            <div class="track-form">
+                <input type="text" id="trackingNumber" 
+                       placeholder="Ex: DOC-2024-12345"
+                       data-placeholder-fr="Ex: DOC-2024-12345"
+                       data-placeholder-ar="مثال: DOC-2024-12345">
+                <button onclick="trackOrder()" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                    <span data-fr="Rechercher" data-ar="بحث">Rechercher</span>
+                </button>
+            </div>
+            <div id="trackingResult" class="tracking-result"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-fr="Contactez-nous" data-ar="اتصل بنا">Contactez-nous</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4 data-fr="Email" data-ar="البريد الإلكتروني">Email</h4>
+                            <p>contact@documents-maroc.ma</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4 data-fr="Téléphone" data-ar="الهاتف">Téléphone</h4>
+                            <p>+212 5XX-XXXXXX</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4 data-fr="Horaires" data-ar="أوقات العمل">Horaires</h4>
+                            <p data-fr="Lun-Ven: 9h00 - 18h00" data-ar="الإثنين-الجمعة: 9:00 - 18:00">Lun-Ven: 9h00 - 18h00</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4 data-fr="Adresse" data-ar="العنوان">Adresse</h4>
+                            <p data-fr="Casablanca, Maroc" data-ar="الدار البيضاء، المغرب">Casablanca, Maroc</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Votre nom"
+                                   data-placeholder-fr="Votre nom"
+                                   data-placeholder-ar="اسمك" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Votre email"
+                                   data-placeholder-fr="Votre email"
+                                   data-placeholder-ar="بريدك الإلكتروني" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="5" placeholder="Votre message"
+                                      data-placeholder-fr="Votre message"
+                                      data-placeholder-ar="رسالتك" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span data-fr="Envoyer" data-ar="إرسال">Envoyer</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-fr="À Propos" data-ar="عن الموقع">À Propos</h3>
+                    <p data-fr="Service professionnel d'assistance pour l'obtention de documents civils marocains officiels."
+                       data-ar="خدمة احترافية للمساعدة في الحصول على الوثائق المدنية المغربية الرسمية.">
+                        Service professionnel d'assistance pour l'obtention de documents civils marocains officiels.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-fr="Liens Utiles" data-ar="روابط مفيدة">Liens Utiles</h3>
+                    <ul>
+                        <li><a href="#services" data-fr="Nos Services" data-ar="خدماتنا">Nos Services</a></li>
+                        <li><a href="#process" data-fr="Procédure" data-ar="الإجراءات">Procédure</a></li>
+                        <li><a href="#track" data-fr="Suivi" data-ar="التتبع">Suivi</a></li>
+                        <li><a href="#contact" data-fr="Contact" data-ar="اتصل بنا">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-fr="Documents" data-ar="الوثائق">Documents</h3>
+                    <ul>
+                        <li><a href="#" data-fr="Acte de Naissance" data-ar="شهادة الميلاد">Acte de Naissance</a></li>
+                        <li><a href="#" data-fr="Acte de Mariage" data-ar="عقد الزواج">Acte de Mariage</a></li>
+                        <li><a href="#" data-fr="Acte de Décès" data-ar="شهادة الوفاة">Acte de Décès</a></li>
+                        <li><a href="#" data-fr="Livret de Famille" data-ar="دفتر العائلة">Livret de Famille</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-fr="Suivez-nous" data-ar="تابعنا">Suivez-nous</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 <span data-fr="Documents Maroc. Tous droits réservés." 
+                                     data-ar="وثائق المغرب. جميع الحقوق محفوظة.">
+                    Documents Maroc. Tous droits réservés.</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
