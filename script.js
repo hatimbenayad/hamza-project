@@ -4,6 +4,14 @@
 
 // Translations object
 const translations = {
+    en: {
+        // Placeholders
+        trackingPlaceholder: "Ex: DOC-2024-12345",
+        namePlaceholder: "Your name",
+        emailPlaceholder: "Your email",
+        messagePlaceholder: "Your message",
+        additionalInfoPlaceholder: "Any additional information that could help us process your request faster...",
+    },
     fr: {
         // Placeholders
         trackingPlaceholder: "Ex: DOC-2024-12345",
@@ -23,23 +31,24 @@ const translations = {
 };
 
 // Current language
-let currentLang = 'fr';
+let currentLang = 'en';
 
 // Switch Language Function
 function switchLanguage(lang) {
     currentLang = lang;
     const body = document.body;
     
+    // Remove all language classes
+    body.classList.remove('lang-en', 'lang-fr', 'lang-ar');
+    
     // Update body class
     if (lang === 'ar') {
-        body.classList.remove('lang-fr');
         body.classList.add('lang-ar');
         document.documentElement.setAttribute('lang', 'ar');
         document.documentElement.setAttribute('dir', 'rtl');
     } else {
-        body.classList.remove('lang-ar');
-        body.classList.add('lang-fr');
-        document.documentElement.setAttribute('lang', 'fr');
+        body.classList.add(`lang-${lang}`);
+        document.documentElement.setAttribute('lang', lang);
         document.documentElement.setAttribute('dir', 'ltr');
     }
     
@@ -66,7 +75,7 @@ function switchLanguage(lang) {
 
 // Update all text content based on language
 function updateTranslations(lang) {
-    const elements = document.querySelectorAll('[data-fr][data-ar]');
+    const elements = document.querySelectorAll('[data-en][data-fr][data-ar]');
     
     elements.forEach(element => {
         const text = element.getAttribute(`data-${lang}`);
@@ -103,7 +112,7 @@ function updatePlaceholders(lang) {
     }
     
     // Contact form placeholders
-    const contactInputs = document.querySelectorAll('[data-placeholder-fr][data-placeholder-ar]');
+    const contactInputs = document.querySelectorAll('[data-placeholder-en][data-placeholder-fr][data-placeholder-ar]');
     contactInputs.forEach(input => {
         const placeholder = input.getAttribute(`data-placeholder-${lang}`);
         if (placeholder) {
@@ -200,6 +209,14 @@ function generateReferenceNumber() {
 // Show success message
 function showSuccessMessage(referenceNumber) {
     const messages = {
+        en: `
+            <div class="success-message">
+                <h3>✓ Request submitted successfully!</h3>
+                <p><strong>Reference number:</strong> ${referenceNumber}</p>
+                <p>We have received your request. You will receive a confirmation email within a few minutes.</p>
+                <p>You can track your request status using your reference number in the "Track" section.</p>
+            </div>
+        `,
         fr: `
             <div class="success-message">
                 <h3>✓ Demande soumise avec succès !</h3>
@@ -262,8 +279,10 @@ function trackOrder() {
                 date: '2024-10-25',
                 time: '10:30',
                 completed: true,
+                titleEn: 'Request Received',
                 titleFr: 'Demande reçue',
                 titleAr: 'تم استلام الطلب',
+                descEn: 'Your request has been registered in our system',
                 descFr: 'Votre demande a été enregistrée dans notre système',
                 descAr: 'تم تسجيل طلبك في نظامنا'
             },
@@ -272,8 +291,10 @@ function trackOrder() {
                 date: '2024-10-26',
                 time: '14:20',
                 completed: true,
+                titleEn: 'Documents Verified',
                 titleFr: 'Documents vérifiés',
                 titleAr: 'تم التحقق من المستندات',
+                descEn: 'All your documents have been verified and validated',
                 descFr: 'Tous vos documents ont été vérifiés et validés',
                 descAr: 'تم التحقق من جميع مستنداتك والموافقة عليها'
             },
@@ -282,8 +303,10 @@ function trackOrder() {
                 date: '2024-10-27',
                 time: '09:15',
                 completed: true,
+                titleEn: 'Processing',
                 titleFr: 'En cours de traitement',
                 titleAr: 'قيد المعالجة',
+                descEn: 'We are in contact with the relevant authorities',
                 descFr: 'Nous sommes en contact avec les autorités compétentes',
                 descAr: 'نحن على اتصال مع السلطات المختصة'
             },
@@ -292,8 +315,10 @@ function trackOrder() {
                 date: '',
                 time: '',
                 completed: false,
+                titleEn: 'Document Ready',
                 titleFr: 'Document prêt',
                 titleAr: 'الوثيقة جاهزة',
+                descEn: 'Waiting for document reception',
                 descFr: 'En attente de réception du document',
                 descAr: 'في انتظار استلام الوثيقة'
             }
@@ -312,8 +337,19 @@ function displayTrackingResult(data) {
     
     data.timeline.forEach(item => {
         const completedClass = item.completed ? 'completed' : '';
-        const title = lang === 'fr' ? item.titleFr : item.titleAr;
-        const desc = lang === 'fr' ? item.descFr : item.descAr;
+        let title, desc;
+        
+        if (lang === 'en') {
+            title = item.titleEn;
+            desc = item.descEn;
+        } else if (lang === 'fr') {
+            title = item.titleFr;
+            desc = item.descFr;
+        } else {
+            title = item.titleAr;
+            desc = item.descAr;
+        }
+        
         const dateTime = item.completed ? `${item.date} ${item.time}` : '';
         
         timelineHTML += `
@@ -327,9 +363,14 @@ function displayTrackingResult(data) {
     
     timelineHTML += '</div>';
     
-    const headerText = lang === 'fr' 
-        ? `<h3>Suivi de la demande : ${data.referenceNumber}</h3>`
-        : `<h3>تتبع الطلب: ${data.referenceNumber}</h3>`;
+    let headerText;
+    if (lang === 'en') {
+        headerText = `<h3>Tracking request: ${data.referenceNumber}</h3>`;
+    } else if (lang === 'fr') {
+        headerText = `<h3>Suivi de la demande : ${data.referenceNumber}</h3>`;
+    } else {
+        headerText = `<h3>تتبع الطلب: ${data.referenceNumber}</h3>`;
+    }
     
     resultDiv.innerHTML = headerText + timelineHTML;
     resultDiv.classList.add('active');
@@ -339,6 +380,7 @@ function displayTrackingResult(data) {
 function showTrackingError() {
     const resultDiv = document.getElementById('trackingResult');
     const messages = {
+        en: '<div class="error-message">Please enter a valid reference number.</div>',
         fr: '<div class="error-message">Veuillez entrer un numéro de référence valide.</div>',
         ar: '<div class="error-message">الرجاء إدخال رقم مرجع صالح.</div>'
     };
@@ -361,6 +403,7 @@ if (contactForm) {
         e.preventDefault();
         
         const messages = {
+            en: 'Thank you for your message! We will respond as soon as possible.',
             fr: 'Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.',
             ar: 'شكرا لرسالتك! سنرد عليك في أقرب وقت ممكن.'
         };
@@ -443,7 +486,7 @@ if (documentForm) {
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
     // Load saved language preference
-    const savedLang = localStorage.getItem('preferredLanguage') || 'fr';
+    const savedLang = localStorage.getItem('preferredLanguage') || 'en';
     switchLanguage(savedLang);
     
     // Language button click handler (for mobile)
@@ -508,12 +551,16 @@ document.querySelectorAll('.service-link').forEach(link => {
         
         // Map heading to document type value
         const typeMap = {
+            'Birth Certificate': 'birth',
             'Acte de Naissance': 'birth',
             'شهادة الميلاد': 'birth',
+            'Marriage Certificate': 'marriage',
             'Acte de Mariage': 'marriage',
             'عقد الزواج': 'marriage',
+            'Death Certificate': 'death',
             'Acte de Décès': 'death',
             'شهادة الوفاة': 'death',
+            'Family Record Book': 'family',
             'Livret de Famille': 'family',
             'دفتر العائلة': 'family'
         };
@@ -545,6 +592,7 @@ if (footerYear) {
 // ============================================
 // Console Welcome Message
 // ============================================
-console.log('%c🇲🇦 Documents Maroc', 'color: #c1272d; font-size: 24px; font-weight: bold;');
+console.log('%c🇲🇦 Morocco Docs', 'color: #c1272d; font-size: 24px; font-weight: bold;');
+console.log('%cProfessional service for your Moroccan civil documents', 'color: #006233; font-size: 14px;');
 console.log('%cService professionnel pour vos documents civils marocains', 'color: #006233; font-size: 14px;');
 console.log('%cخدمة احترافية لوثائقك المدنية المغربية', 'color: #006233; font-size: 14px; direction: rtl;');

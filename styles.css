@@ -38,6 +38,12 @@ body.lang-ar .section-title {
     font-weight: 700;
 }
 
+/* English/French Font (default LTR) */
+body.lang-en,
+body.lang-fr {
+    direction: ltr;
+}
+
 /* Container */
 .container {
     max-width: 1200px;
