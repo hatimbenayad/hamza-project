@@ -38,6 +38,18 @@ body.lang-ar .section-title {
     font-weight: 700;
 }
 
+/* Tamazight/Berber Font Support (Tifinagh) */
+body.lang-ber {
+    font-family: 'Noto Sans Tifinagh', 'Ebrima', 'Segoe UI', sans-serif;
+    direction: ltr;
+}
+
+body.lang-ber .hero-content h1,
+body.lang-ber .section-title {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
 /* English/French Font (default LTR) */
 body.lang-en,
 body.lang-fr {

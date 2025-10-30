@@ -27,6 +27,14 @@ const translations = {
         emailPlaceholder: "بريدك الإلكتروني",
         messagePlaceholder: "رسالتك",
         additionalInfoPlaceholder: "أي معلومات إضافية قد تساعدنا في معالجة طلبك بشكل أسرع...",
+    },
+    ber: {
+        // Placeholders
+        trackingPlaceholder: "ⴰⵎⴷⵢⴰ: DOC-2024-12345",
+        namePlaceholder: "ⵉⵙⵎ ⵏⵏⴽ",
+        emailPlaceholder: "ⵉⵎⴰⵢⵍ ⵏⵏⴽ",
+        messagePlaceholder: "ⵜⵓⵣⵉⵏⵜ ⵏⵏⴽ",
+        additionalInfoPlaceholder: "ⴽⵓⵍⵛⵉ ⵉⵏⵖⵎⵉⵙⴰ ⵉⵙⴰⵔⴰⴳⵏ ⴰⴷ ⴰⵖ ⵉⵙⴰⵡⴰⵙⵏ ⵉ ⵓⵙⵡⵓⵔⵉ ⵏ ⵓⵙⵓⵜⵔ ⵏⵏⴽ ⵙ ⵓⵔⵣⵣⵓ...",
     }
 };
 
@@ -39,13 +47,17 @@ function switchLanguage(lang) {
     const body = document.body;
     
     // Remove all language classes
-    body.classList.remove('lang-en', 'lang-fr', 'lang-ar');
+    body.classList.remove('lang-en', 'lang-fr', 'lang-ar', 'lang-ber');
     
-    // Update body class
+    // Update body class and direction
     if (lang === 'ar') {
         body.classList.add('lang-ar');
         document.documentElement.setAttribute('lang', 'ar');
         document.documentElement.setAttribute('dir', 'rtl');
+    } else if (lang === 'ber') {
+        body.classList.add('lang-ber');
+        document.documentElement.setAttribute('lang', 'ber');
+        document.documentElement.setAttribute('dir', 'ltr');
     } else {
         body.classList.add(`lang-${lang}`);
         document.documentElement.setAttribute('lang', lang);
@@ -55,7 +67,11 @@ function switchLanguage(lang) {
     // Update current language display
     const currentLangSpan = document.querySelector('.current-lang');
     if (currentLangSpan) {
-        currentLangSpan.textContent = lang.toUpperCase();
+        if (lang === 'ber') {
+            currentLangSpan.textContent = 'ⵣ';
+        } else {
+            currentLangSpan.textContent = lang.toUpperCase();
+        }
     }
     
     // Update all translatable elements
@@ -75,9 +91,9 @@ function switchLanguage(lang) {
 
 // Update all text content based on language
 function updateTranslations(lang) {
-    const elements = document.querySelectorAll('[data-en][data-fr][data-ar]');
-    
-    elements.forEach(element => {
+    // Handle elements with all 4 language attributes
+    const elementsAll = document.querySelectorAll('[data-en][data-fr][data-ar][data-ber]');
+    elementsAll.forEach(element => {
         const text = element.getAttribute(`data-${lang}`);
         if (text) {
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
@@ -87,7 +103,22 @@ function updateTranslations(lang) {
             } else if (element.tagName === 'TITLE') {
                 document.title = text;
             } else {
-                // For regular elements, update text content
+                element.innerHTML = text;
+            }
+        }
+    });
+    
+    // Handle elements with only 3 languages (legacy support)
+    const elementsThree = document.querySelectorAll('[data-en][data-fr][data-ar]:not([data-ber])');
+    elementsThree.forEach(element => {
+        // For Tamazight, fall back to English if Tamazight not available
+        const text = element.getAttribute(`data-${lang}`) || element.getAttribute('data-en');
+        if (text) {
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                element.placeholder = text;
+            } else if (element.tagName === 'OPTION') {
+                element.textContent = text;
+            } else {
                 element.innerHTML = text;
             }
         }
@@ -112,7 +143,7 @@ function updatePlaceholders(lang) {
     }
     
     // Contact form placeholders
-    const contactInputs = document.querySelectorAll('[data-placeholder-en][data-placeholder-fr][data-placeholder-ar]');
+    const contactInputs = document.querySelectorAll('[data-placeholder-en][data-placeholder-fr][data-placeholder-ar], [data-placeholder-en][data-placeholder-fr][data-placeholder-ar][data-placeholder-ber]');
     contactInputs.forEach(input => {
         const placeholder = input.getAttribute(`data-placeholder-${lang}`);
         if (placeholder) {
@@ -232,6 +263,14 @@ function showSuccessMessage(referenceNumber) {
                 <p>لقد استلمنا طلبك. ستتلقى بريدًا إلكترونيًا للتأكيد في غضون دقائق.</p>
                 <p>يمكنك تتبع حالة طلبك باستخدام رقم المرجع الخاص بك في قسم "التتبع".</p>
             </div>
+        `,
+        ber: `
+            <div class="success-message">
+                <h3>✓ ⵉⵜⵜⵓⵙⵎⵓⵜⵜⴰ ⵓⵙⵓⵜⵔ ⵙ ⵓⵎⵓⵔⵙ!</h3>
+                <p><strong>ⴰⵎⴹⴰⵏ ⵏ ⵓⵙⵏⵎⴰⵍ:</strong> ${referenceNumber}</p>
+                <p>ⵏⵙⵎⵓⵜⵜⴰ ⴰⵙⵓⵜⵔ ⵏⵏⴽ. ⴰⴷ ⵜⴰⵡⵉⴹ ⵉⵎⴰⵢⵍ ⵏ ⵓⵙⴳⴳⵓⴷⵓ ⴳ ⴽⵔⴰ ⵏ ⵜⵙⴷⴰⴷⵉⵏ.</p>
+                <p>ⵜⵣⵎⵔⴷ ⴰⴷ ⵜⴹⴼⵕⴷ ⴰⴷⴷⴰⴷ ⵏ ⵓⵙⵓⵜⵔ ⵏⵏⴽ ⵙ ⵓⵙⵎⵔⵙ ⵏ ⵓⵎⴹⴰⵏ ⵏⵏⴽ ⴳ ⵜⴰⵙⵇⵇⵉⵎⵜ "ⴰⴹⴼⵓⵕ".</p>
+            </div>
         `
     };
     
@@ -282,9 +321,11 @@ function trackOrder() {
                 titleEn: 'Request Received',
                 titleFr: 'Demande reçue',
                 titleAr: 'تم استلام الطلب',
+                titleBer: 'ⵉⵜⵜⵓⵙⵎⵓⵜⵜⴰ ⵓⵙⵓⵜⵔ',
                 descEn: 'Your request has been registered in our system',
                 descFr: 'Votre demande a été enregistrée dans notre système',
-                descAr: 'تم تسجيل طلبك في نظامنا'
+                descAr: 'تم تسجيل طلبك في نظامنا',
+                descBer: 'ⵉⵜⵜⵓⵙⴽⵍⵙ ⵓⵙⵓⵜⵔ ⵏⵏⴽ ⴳ ⵓⵏⴳⵔⴰⵡ ⵏⵏⵖ'
             },
             {
                 status: 'verified',
@@ -294,9 +335,11 @@ function trackOrder() {
                 titleEn: 'Documents Verified',
                 titleFr: 'Documents vérifiés',
                 titleAr: 'تم التحقق من المستندات',
+                titleBer: 'ⵜⵜⵓⵙⴳⴳⵓⴷⴰⵏⵜ ⵜⴰⵙⵏⴰⵡⵉⵏ',
                 descEn: 'All your documents have been verified and validated',
                 descFr: 'Tous vos documents ont été vérifiés et validés',
-                descAr: 'تم التحقق من جميع مستنداتك والموافقة عليها'
+                descAr: 'تم التحقق من جميع مستنداتك والموافقة عليها',
+                descBer: 'ⵎⴰⵕⵕⴰ ⵜⴰⵙⵏⴰⵡⵉⵏ ⵏⵏⴽ ⵜⵜⵓⵙⴳⴳⵓⴷⴰⵏⵜ'
             },
             {
                 status: 'processing',
@@ -306,9 +349,11 @@ function trackOrder() {
                 titleEn: 'Processing',
                 titleFr: 'En cours de traitement',
                 titleAr: 'قيد المعالجة',
+                titleBer: 'ⴰⵔ ⵉⵜⵜⵡⴰⵙⵡⵓⵔⵉ',
                 descEn: 'We are in contact with the relevant authorities',
                 descFr: 'Nous sommes en contact avec les autorités compétentes',
-                descAr: 'نحن على اتصال مع السلطات المختصة'
+                descAr: 'نحن على اتصال مع السلطات المختصة',
+                descBer: 'ⵏⵍⵍⴰ ⴳ ⵓⵎⵢⴰⵡⴰⴹ ⴷ ⵜⵏⴱⴰⴹⵉⵏ'
             },
             {
                 status: 'ready',
@@ -318,9 +363,11 @@ function trackOrder() {
                 titleEn: 'Document Ready',
                 titleFr: 'Document prêt',
                 titleAr: 'الوثيقة جاهزة',
+                titleBer: 'ⴰⵙⵏⵓⴱⴳ ⵉⵃⵎⴰ',
                 descEn: 'Waiting for document reception',
                 descFr: 'En attente de réception du document',
-                descAr: 'في انتظار استلام الوثيقة'
+                descAr: 'في انتظار استلام الوثيقة',
+                descBer: 'ⴰⵔ ⵏⵜⵜⵔⴰⵊⵓ ⴰⵙⵎⵓⵜⵜⵉ ⵏ ⵓⵙⵏⵓⴱⴳ'
             }
         ]
     };
@@ -345,9 +392,12 @@ function displayTrackingResult(data) {
         } else if (lang === 'fr') {
             title = item.titleFr;
             desc = item.descFr;
-        } else {
+        } else if (lang === 'ar') {
             title = item.titleAr;
             desc = item.descAr;
+        } else if (lang === 'ber') {
+            title = item.titleBer || item.titleEn;
+            desc = item.descBer || item.descEn;
         }
         
         const dateTime = item.completed ? `${item.date} ${item.time}` : '';
@@ -368,8 +418,10 @@ function displayTrackingResult(data) {
         headerText = `<h3>Tracking request: ${data.referenceNumber}</h3>`;
     } else if (lang === 'fr') {
         headerText = `<h3>Suivi de la demande : ${data.referenceNumber}</h3>`;
-    } else {
+    } else if (lang === 'ar') {
         headerText = `<h3>تتبع الطلب: ${data.referenceNumber}</h3>`;
+    } else if (lang === 'ber') {
+        headerText = `<h3>ⴰⴹⴼⵓⵕ ⵏ ⵓⵙⵓⵜⵔ: ${data.referenceNumber}</h3>`;
     }
     
     resultDiv.innerHTML = headerText + timelineHTML;
@@ -382,7 +434,8 @@ function showTrackingError() {
     const messages = {
         en: '<div class="error-message">Please enter a valid reference number.</div>',
         fr: '<div class="error-message">Veuillez entrer un numéro de référence valide.</div>',
-        ar: '<div class="error-message">الرجاء إدخال رقم مرجع صالح.</div>'
+        ar: '<div class="error-message">الرجاء إدخال رقم مرجع صالح.</div>',
+        ber: '<div class="error-message">ⵎⴽ ⵜⵓⵜⵜⵔⴷ ⵙⵙⴽⵛⵎ ⴰⵎⴹⴰⵏ ⵏ ⵓⵙⵏⵎⴰⵍ ⵉⵎⴳⵉⵏ.</div>'
     };
     
     resultDiv.innerHTML = messages[currentLang];
@@ -405,7 +458,8 @@ if (contactForm) {
         const messages = {
             en: 'Thank you for your message! We will respond as soon as possible.',
             fr: 'Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.',
-            ar: 'شكرا لرسالتك! سنرد عليك في أقرب وقت ممكن.'
+            ar: 'شكرا لرسالتك! سنرد عليك في أقرب وقت ممكن.',
+            ber: 'ⵜⴰⵏⵎⵎⵉⵔⵜ ⵖⴼ ⵜⵓⵣⵉⵏⵜ ⵏⵏⴽ! ⴰⴷ ⵏⵔⴰⵔ ⵙ ⵓⵔⵣⵣⵓ.'
         };
         
         alert(messages[currentLang]);
@@ -554,15 +608,19 @@ document.querySelectorAll('.service-link').forEach(link => {
             'Birth Certificate': 'birth',
             'Acte de Naissance': 'birth',
             'شهادة الميلاد': 'birth',
+            'ⴰⵙⵏⵓⴱⴳ ⵏ ⵜⵍⴰⵍⵉⵜ': 'birth',
             'Marriage Certificate': 'marriage',
             'Acte de Mariage': 'marriage',
             'عقد الزواج': 'marriage',
+            'ⴰⵙⵏⵓⴱⴳ ⵏ ⵜⵉⵙⵙⵉ': 'marriage',
             'Death Certificate': 'death',
             'Acte de Décès': 'death',
             'شهادة الوفاة': 'death',
+            'ⴰⵙⵏⵓⴱⴳ ⵏ ⵜⴰⵎⵜⵜⴰⵏⵜ': 'death',
             'Family Record Book': 'family',
             'Livret de Famille': 'family',
-            'دفتر العائلة': 'family'
+            'دفتر العائلة': 'family',
+            'ⴰⴷⵍⵉⵙ ⵏ ⵜⴰⵡⴰⵛⵓⵍⵜ': 'family'
         };
         
         const documentType = typeMap[heading];
